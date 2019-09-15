@@ -28,8 +28,10 @@ class BigInteger:
             result.append(s % 10)
             overhead = s // 10
 
-            cur_this = cur_this.next()
-            cur_other = cur_other.next()
+            if cur_this:
+                cur_this = cur_this.next()
+            if cur_other:
+                cur_other = cur_other.next()
 
         if overhead:
             result.append(overhead)
@@ -66,6 +68,10 @@ def main():
     assert BigInteger("123") == "123"
     assert BigInteger("123") + BigInteger("321") == "444"
     assert BigInteger("923") + BigInteger("921") == "1844"
+    assert BigInteger("0") + BigInteger("921") == "921"
+    assert BigInteger("101") + BigInteger("101") == "202"
+    assert BigInteger("0") + BigInteger("0") == "0"
+
     print("Tests OK")
     first = input("First number: ")
     second = input("Second number: ")
