@@ -76,12 +76,27 @@ class DigitalList:
         self._len += 1
         return self
 
+    def join(self):
+        result = ""
+        cur = self.start
+        while cur:
+            result += str(cur.number)
+            cur = cur.next()
+        return result
+
 
 def make_list_from_number(number=0):
     lst = DigitalList(number % 10)
     while number >= 10:
         number //= 10
         lst.append(number % 10)
+    return lst
+
+
+def make_number_list_from_string(string_number="0"):
+    lst = DigitalList()
+    for digit in string_number[-1::-1]:
+        lst.append(int(digit))
     return lst
 
 
@@ -128,6 +143,12 @@ def main():
     assert make_list_from_number(123).end.number == 1
     assert make_list_from_number(0).start.number == 0
     assert make_list_from_number(0).end.number == 0
+
+    # make_number_list_from_string tests
+    assert make_number_list_from_string("123").start.number == 3
+    assert make_number_list_from_string("123").end.number == 1
+    assert make_number_list_from_string().start.number == 0
+    assert make_number_list_from_string().end.number == 0
 
     print("Tests OK")
 

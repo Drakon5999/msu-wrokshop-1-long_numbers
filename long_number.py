@@ -1,11 +1,11 @@
 import sys
-from list_impl import DigitalList, make_list_from_number
+from list_impl import DigitalList, make_number_list_from_string
 
 
 class BigInteger:
-    def __init__(self, number=None):
-        if number is not None:
-            self.lst = make_list_from_number(number)
+    def __init__(self, str_number=None):
+        if str_number is not None:
+            self.lst = make_number_list_from_string(str_number)
         else:
             self.lst = None
 
@@ -39,7 +39,7 @@ class BigInteger:
         return result_integer
 
     def __eq__(self, other):
-        if type(other) == int:
+        if type(other) == str:
             other = BigInteger(other)
 
         cur_this = self.lst.start
@@ -56,15 +56,21 @@ class BigInteger:
 
         return True
 
+    def __str__(self):
+        return (self.lst.join())[-1::-1]
+
 
 def main():
-    assert BigInteger(123).lst.start.number == 3
-    assert BigInteger(123).lst.end.number == 1
-    assert BigInteger(123) == 123
-    assert BigInteger(123) + BigInteger(321) == 444
-    assert BigInteger(923) + BigInteger(921) == 1844
-
+    assert BigInteger("123").lst.start.number == 3
+    assert BigInteger("123").lst.end.number == 1
+    assert BigInteger("123") == "123"
+    assert BigInteger("123") + BigInteger("321") == "444"
+    assert BigInteger("923") + BigInteger("921") == "1844"
     print("Tests OK")
+    first = input("First number: ")
+    second = input("Second number: ")
+
+    print("Result {}".format(str(BigInteger(first) + BigInteger(second))))
     return 0
 
 
